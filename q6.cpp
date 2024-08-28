@@ -10,7 +10,7 @@ void sort1(int *a, int n) {
 }
 
 // Selection sorting algorithm for strings
-void sort2(char *a[], int n) {
+void sort2(const char *a[], int n) {
     for (unsigned int i = 0; i < n - 1; i++) {
         unsigned int minIndex = i;
         for (unsigned int j = i + 1; j < n; j++) {
@@ -28,7 +28,7 @@ void sort2(char *a[], int n) {
 
 int main() {
     int a[] = {-2, 3, 8, 10, 7, 56, 90};
-    char* str[] = {"hello", "world", "iacs", "raining"};
+    const char* str[] = {"hello", "world", "iacs", "raining"};
 
     // Sorting integers
     void (*sortInt)(int *, int);
@@ -40,7 +40,7 @@ int main() {
     std::cout << "\n";
     
     // Sorting strings
-    void (sortString)(char[], int);
+    void (sortString)(const char[], int);
     sortString = &sort2;
     sortString(str, 4); // call via function pointer
 
@@ -48,5 +48,5 @@ int main() {
         std::cout << str[i] << " ";
     std::cout << "\n";
     
-    return 0;
+    return 0;
 }
