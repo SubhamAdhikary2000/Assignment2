@@ -4,7 +4,7 @@
 void sort1(int *a, int n)
 {
     for (unsigned int i = 0; i < n; i++)
-        {
+    {
         for (unsigned int j = i + 1; j < n; j++)
         {
             if (a[i] > a[j])
@@ -19,7 +19,7 @@ void sort1(int *a, int n)
 void sort2(char *a[], int n)
 {
     for (unsigned int i = 0; i < n; i++)
-        {
+    {
         // Find the index of the smallest string in the unsorted part
         unsigned int minIdx = i;
         for (unsigned int j = i + 1; j < n; j++)
