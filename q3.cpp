@@ -1,29 +1,49 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-int callcount=0;//Declaring Global variable callcount
-//using this global variable
-void displaycallcount()
+
+// Global variable to count the calls
+int callCount = 0;
+
+// Function using a global variable
+/*
+The callCount variable is declared globally, meaning it can be accessed and modified from anywhere in the program.
+This approach is straightforward and allows for easy tracking of calls.
+Drawback: Using global variables can lead to issues with name collisions and make debugging more difficult.
+It also introduces the risk of unintended modifications from other parts of the code.
+*/
+void countCallsGlobal()
 {
-	callcount++;
-	cout<<"I have been called "<<callcount<<"times"<<endl;
+    callCount++;
+    cout << "I have been called " << callCount << " times" << endl;
 }
-void displaycallcount1()
+// Function using a local static variable
+/*
+The callCount variable is declared as static, meaning it retains its value between
+function calls, but it is only accessible within the function.
+This encapsulates the counting logic, preventing external code from altering callCount.
+Benefit: This method reduces the risk of name collisions and makes the code more modular and easier to maintain.
+*/
+void countCallsStatic()
 {
-	static int callcount1=0;
-	callcount++;
-	cout<<"I have been called "<<callcount<<"times"<<endl;
+    static int callCount = 0; // Static local variable
+    callCount++;
+    cout << "I have been called " << callCount << " times" << endl;
 }
+/*
+A local variable would reset its value every time the function is called.
+Therefore, it wouldn’t be able to keep track of the number of calls accurately.
+*/
 int main()
 {
-	for(int i=0;i<10;i++)
-	{
-		displaycallcount();
-	}
-	for(int i=0;i<10;i++)
-        {
-                displaycallcount1();
-        }
-
-	return 0;
-
+    // Call the function at least 10 times
+    for (int i = 0; i < 10; ++i)
+    {
+        countCallsGlobal();
+    }
+    // Call the function at least 10 times
+    for (int i = 0; i < 10; ++i)
+    {
+        countCallsStatic();
+    }
+    return 0;
 }
