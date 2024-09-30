@@ -1,53 +1,38 @@
 #include <iostream>
+#include<string.h>
 
-// Step 1: Define a typedef for the function type.
-// A function taking arguments of type pointer to character and reference to integer, and returning no value.
-typedef void Func(char*, int&);
+// Define the typedef
+typedef void (*FuncPtr)(char*, int&);
 
-// Step 2: Define a typedef for a pointer to the function defined in Step 1.
-typedef Func* FuncPtr;
-
-// A sample function matching the type defined in Step 1.
-void sampleFunction(char* c, int& i) {
-    std::cout << "Character: " << *c << ", Integer: " << i << std::endl;
-    i += 10;  // Modify the integer reference for demonstration.
+// Declare the function taking a pointer to character and a reference to integer
+void myFunction(char* str, int& num)
+{
+    num = strlen(str); //set num to length of str
 }
 
-// Step 3: Define a function that takes a pointer to the function defined in Step 1 as an argument.
-void functionTakingPointer(FuncPtr fp) {
-    char c = 'A';
-    int i = 5;
-    fp(&c, i);  // Call the function through the pointer.
+// Declare a pointer to such a function
+FuncPtr funcPointer;
+
+// Declare a function taking such a pointer as an argument
+void anotherFunction(FuncPtr f)
+{
+    char example[] = "Hello";
+    int length;
+    f(example, length); // Call the passed function
+    std::cout << "Length of string: " << length << std::endl;
 }
 
-// Step 4: Define a function that returns a pointer to the function defined in Step 1.
-FuncPtr functionReturningPointer() {
-    return &sampleFunction;
-}
-
-// Step 5: Define a function that takes a function pointer as an argument and returns the same pointer.
-FuncPtr functionWithPointerArgument(FuncPtr fp) {
-    return fp;
+// Declare a function returning such a pointer
+FuncPtr returnFunction()
+{
+    return myFunction; // Returning the address of myFunction
 }
 
 int main() {
-    // Demonstrate usage of the functions defined.
-    FuncPtr fp = &sampleFunction;
 
-    // Call the function that takes a function pointer.
-    functionTakingPointer(fp);
-
-    // Get a function pointer from a function and call it.
-    FuncPtr returnedFp = functionReturningPointer();
-    char c = 'B';
-    int j = 20;
-    returnedFp(&c, j);
-
-    // Use the function that returns its argument as a return value.
-    FuncPtr sameFp = functionWithPointerArgument(fp);
-    sameFp(&c, j);
-
-    return 0;
+    funcPointer =returnFunction(); // Get the function pointer
+    anotherFunction(funcPointer); // Call anotherFunction with the pointer
+    return 0;
 }
 
 
