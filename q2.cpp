@@ -1,10 +1,27 @@
 /*What does the following mean? What would it be good for?
 typedef int (&rifii) (int, int);*/
 
-/*The statement typedef int (&rifii)(int, int); defines rifii as an alias for a reference
-to a function that takes two int parameters and returns an int. 
+/*typedef: This keyword is used to create an alias for an existing type.
+int (&rifii): This part specifies that rifii is a reference type. The & indicates that it is a reference to a function.
+(int, int): These are the parameter types of the function being referenced. In this case, the function takes two int arguments.*/
+#include <iostream>
+using namespace std;
+// Define the typedef
+typedef int (&rifii)(int, int);
+int add(int a, int b)
+{
+    return a + b;
+}
 
-This alias makes it easier to refer to functions of this type. It’s useful for simplifying 
-code, especially when passing or storing function references, and improves readability by 
-avoiding repetitive function signatures. For example, you can use rifii to create a reference
-to a function and call it using a simpler name.*/
+//function taking rifii as a parameter
+void userFunction(rifii func, int x, int y)
+{
+    cout<< "Result: " << func(x, y) <<endl;
+}
+
+int main()
+{
+    // Use the reference to function
+    userFunction(add, 8, 19); // Output: Result: 27
+    return 0;
+}
